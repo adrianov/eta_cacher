@@ -16,6 +16,7 @@ configure :development do
 end
 
 Mongoid.load!('./config/mongoid.yml', settings.environment)
+Car.create_indexes
 
 get '/' do
   status 200
@@ -40,4 +41,5 @@ end
 get '/eta' do
   param :lat, Float, min: -180, max: 180
   param :long, Float, min: -180, max: 180
+  Eta::eta([params[:long], params[:lat]]).to_s
 end
