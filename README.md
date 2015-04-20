@@ -1,10 +1,10 @@
 # ETA cacher
-ETA caching service for Wheely
+ETA (estimated time of arrival) caching service for Wheely.
 
 ## Installation
-    bundle install
-    
-    sudo apt-get install mongodb redis-server
+1. Install MongoDB.
+2. Install Redis.
+3. Do `bundle`.
 
 ## Usage
 1. Create or update cars with `/car?_id=1&lat=55.7516&long=37.6185&available=true`
