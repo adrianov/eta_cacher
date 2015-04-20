@@ -7,5 +7,5 @@ ETA caching service for Wheely
     sudo apt-get install mongodb redis-server
 
 ## Usage
-1. Create or update cars with `/car?id=1&lat=111&long=222&available=true`
-2. Call ETA with `/eta?lat=111&long=222`
+1. Create or update cars with `/car?_id=1&lat=55.7516&long=37.6185&available=true`
+2. Call ETA with `/eta?lat=55.7000&long=37.6236`
