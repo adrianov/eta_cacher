@@ -2,7 +2,7 @@ require 'rake/testtask'
 require './app.rb'
 
 namespace :db do
-  task :create_indices, :environment do
+  task :create_indexes, :environment do
     Mongoid.load!('./config/mongoid.yml', settings.environment)
     Car.create_indexes
   end
