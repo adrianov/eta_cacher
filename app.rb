@@ -26,7 +26,7 @@ get '/car' do
   param :_id, Integer, required: true
   param :lat, Float, min: -180, max: 180
   param :long, Float, min: -180, max: 180
-  param :available, Boolean, default: true
+  param :available, Sinatra::Param::Boolean, default: true
 
   car = Car.find_or_create_by(_id: params['_id'])
   car.update(
