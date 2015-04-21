@@ -10,3 +10,8 @@ group :development do
   gem 'monkey-lib'
   gem 'sinatra-sugar'
 end
+
+group :test do
+  gem 'minitest'
+  gem 'rack-test'
+end

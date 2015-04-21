@@ -5,7 +5,8 @@ ETA (estimated time of arrival) caching service for Wheely.
 1. Install MongoDB.
 2. Install Redis.
 3. Do `bundle`.
-4. `bundle exec rake db:create_indices`
+4. Create DB indices `bundle exec rake db:create_indices`
+5. Test it `bundle exec rake test`
 
 ## Usage
 1. Run `bundle exec ruby app.rb`
