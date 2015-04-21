@@ -16,7 +16,6 @@ configure :development do
 end
 
 Mongoid.load!('./config/mongoid.yml', settings.environment)
-Car.create_indexes
 
 get '/' do
   status 200

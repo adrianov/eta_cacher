@@ -1,6 +1,13 @@
 development:
   sessions:
     default:
-      database: test
+      database: eta_cacher_development
+      hosts:
+        - localhost:27017
+
+test:
+  sessions:
+    default:
+      database: eta_cacher_test
       hosts:
         - localhost:27017
