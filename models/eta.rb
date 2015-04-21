@@ -10,8 +10,16 @@ class Eta
   # 2. Look at 9 near squares for src and dst (9 * 9 = 81 pipelined looks)
   # 3. Ask external service
   def eta(dst)
-    car = Car.near_sphere(position: dst).first
-    cache_look_exact(car.position, dst) || cache_look_near(car.position, dst) || external(car.position, dst)
+    cars = Car.near_sphere(position: dst).where(available: true).limit(3)
+
+    return nil if cars.count == 0
+
+    etas = []
+    cars.each do |car|
+      etas << (cache_look_exact(car.position, dst) || cache_look_near(car.position, dst) || external(car.position, dst))
+    end
+
+    etas.reduce(&:+) / etas.length
   end
 
   private

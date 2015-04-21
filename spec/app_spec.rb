@@ -38,6 +38,10 @@ describe 'app' do
   end
 
   it 'should calculate ETA' do
+    # No cars
+    get '/eta?long=55.7527&lat=37.6171'
+    last_response.body.must_be_empty
+
     # from Kremlin
     get '/car?_id=1&long=55.7527&lat=37.6171&available=true'
 
@@ -48,6 +52,23 @@ describe 'app' do
     # to Wheely office
     get '/eta?long=55.7000&lat=37.6236'
     last_response.body.to_f.must_be_close_to 5.8740 * 1.5, 0.001
+
+    # Place a car in the office
+    get '/car?_id=2&long=55.7000&lat=37.6236&available=true'
+
+    # ETA should be halved
+    get '/eta?long=55.7000&lat=37.6236'
+    last_response.body.to_f.must_be_close_to (5.8740 * 1.5 / 2), 0.001
+
+    # And 1/3
+    get '/car?_id=3&long=55.7000&lat=37.6236&available=true'
+    get '/eta?long=55.7000&lat=37.6236'
+    last_response.body.to_f.must_be_close_to (5.8740 * 1.5 / 3), 0.001
+
+    # And became 0 because of all 3 nearest cars are here
+    get '/car?_id=4&long=55.7000&lat=37.6236&available=true'
+    get '/eta?long=55.7000&lat=37.6236'
+    last_response.body.to_f.must_equal 0
   end
 end
 
