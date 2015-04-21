@@ -1,8 +1,8 @@
 require 'sinatra'
 require 'sinatra/param'
+require 'redis'
 require 'mongoid'
 require './models/car'
-require './models/distance'
 require './models/eta'
 
 if development?
@@ -15,6 +15,7 @@ configure :development do
   BetterErrors.application_root = File.expand_path('..', __FILE__)
 end
 
+$redis = Redis.new
 Mongoid.load!('./config/mongoid.yml', settings.environment)
 
 get '/' do
@@ -40,5 +41,5 @@ end
 get '/eta' do
   param :lat, Float, min: -180, max: 180
   param :long, Float, min: -180, max: 180
-  Eta::eta([params[:long], params[:lat]]).to_s
+  Eta.new($redis).eta([params[:long], params[:lat]]).to_s
 end
