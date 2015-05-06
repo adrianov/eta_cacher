@@ -81,21 +81,11 @@ describe 'ETA cache' do
     @eta = Eta.new($redis)
   end
 
-  it 'should select nearest cached value' do
-    src_dst_ary = [
-        {src: [1, 2], dst: [3, 4], eta: 2},
-        {src: [1, 3], dst: [3, 4], eta: 1},
-    ]
-    @eta.select_nearest([1, 2], [3, 4], src_dst_ary).must_equal({src: [1, 2], dst: [3, 4], eta: 2})
-  end
-
-  it 'should store and read using Redis cache' do
+  it 'stores and reads using Redis cache' do
     get '/car?_id=1&long=55.7527&lat=37.6171&available=true'
     get '/eta?long=55.7000&lat=37.6236'
     res = last_response.body.to_f
-    @eta.cache_look_exact([55.7527, 37.6171], [55.7000, 37.6236]).must_equal res
-    @eta.cache_look_near([55.7527, 37.6171], [55.7000, 37.6236]).must_equal res
-    @eta.cache_look_near([55.7527 + 0.01, 37.6171], [55.7000, 37.6236 + 0.01]).must_equal res
+    @eta.cache_look([55.7527, 37.6171], [55.7000, 37.6236]).must_equal res
 
     get '/eta?long=55.7012&lat=37.6311'
     last_response.body.to_f.must_equal res
