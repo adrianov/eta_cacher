@@ -50,6 +50,6 @@ class Eta
 
     # E. g.: 'geohash1:geohash2'
     def redis_key(src, dst)
-      "#{GeoHash.encode(src[0], src[1], PRECISION)}:#{GeoHash.encode(dst[0], dst[1], PRECISION)}"
+      "#{GeoHash.encode(src[1], src[0], PRECISION)}:#{GeoHash.encode(dst[1], dst[0], PRECISION)}"
     end
 end
