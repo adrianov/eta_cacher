@@ -18,12 +18,12 @@ describe 'app' do
     $redis.flushdb
   end
 
-  it 'return status 200 for /' do
+  it 'returns the main page' do
     get '/'
     last_response.status.must_equal 200
   end
 
-  it 'should create and update a car' do
+  it 'creates and updates a car' do
     get '/car?_id=1&long=55.123&lat=37.123&available=false'
     car = Car.find(1)
     car.wont_be_nil
@@ -37,7 +37,7 @@ describe 'app' do
     car.available.must_equal true
   end
 
-  it 'should calculate ETA' do
+  it 'calculates ETA' do
     # No cars
     get '/eta?long=55.7527&lat=37.6171'
     last_response.body.must_be_empty
