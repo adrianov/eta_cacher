@@ -14,6 +14,7 @@ group :development do
 end
 
 group :test do
+  gem 'rake'
   gem 'minitest'
   gem 'rack-test'
 end
